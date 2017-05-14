@@ -68,7 +68,7 @@ EOT
 			if (is_dir($arg)) {
 				$finder->in($arg);
 			} elseif (is_file($arg)) {
-				$files[] = new SplFileInfo($arg,null, null);
+				$files[] = new SplFileInfo($arg, null, null);
 			} else {
 				throw new InvalidArgumentException("Not file or dir: $arg");
 			}
