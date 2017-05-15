@@ -15,10 +15,14 @@
 namespace SmartyGettext\Tokenizer\Token;
 
 class Text {
+	/** @var int */
+	public $line;
+
 	/** @var string */
 	public $text;
 
-	public function __construct($text) {
+	public function __construct($line, $text) {
+		$this->line = $line;
 		$this->text = $text;
 	}
 }

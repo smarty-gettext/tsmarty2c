@@ -34,7 +34,9 @@ class TokenCollector extends Smarty_Internal_SmartyTemplateCompiler {
 	 * {@inheritdoc}
 	 */
 	public function compileTag($tag, $args, $parameter = array()) {
-		self::$tokens[] = new Token\Tag($tag, $args, $parameter);
+		$line = $this->parser->lex->line;
+
+		self::$tokens[] = new Token\Tag($line, $tag, $args, $parameter);
 
 		return parent::compileTag($tag, $args, $parameter);
 	}
@@ -43,7 +45,9 @@ class TokenCollector extends Smarty_Internal_SmartyTemplateCompiler {
 	 * {@inheritdoc}
 	 */
 	public function processText($text) {
-		self::$tokens[] = new Token\Text($text);
+		$line = $this->parser->lex->line;
+
+		self::$tokens[] = new Token\Text($line, $text);
 
 		return parent::processText($text);
 	}

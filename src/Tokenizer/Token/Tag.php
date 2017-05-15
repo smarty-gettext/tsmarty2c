@@ -15,13 +15,17 @@
 namespace SmartyGettext\Tokenizer\Token;
 
 class Tag {
+	/** @var int */
+	public $line;
+
 	/** @var string */
 	public $name;
 
 	/** @var string[] */
 	public $arguments;
 
-	public function __construct($name, $arguments) {
+	public function __construct($line, $name, $arguments) {
+		$this->line = $line;
 		$this->name = $name;
 		$this->arguments = $arguments;
 	}
