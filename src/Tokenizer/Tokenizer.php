@@ -15,7 +15,6 @@
 namespace SmartyGettext\Tokenizer;
 
 use Smarty;
-use Smarty_Internal_SmartyTemplateCompiler;
 use Smarty_Internal_Template;
 
 class Tokenizer {
@@ -40,10 +39,10 @@ class Tokenizer {
 		$template = $this->smarty->createTemplate($templateFile, $this->smarty);
 		$template->source->compiler_class = __NAMESPACE__ . '\\TokenCollector';
 
-		/** @var Smarty_Internal_SmartyTemplateCompiler $compiler */
+		/** @var TokenCollector $compiler */
 		$compiler = $template->compiler;
 		$compiler->compileTemplate($template);
 
-		return TokenCollector::getTokens();
+		return $compiler->getTokens();
 	}
 }

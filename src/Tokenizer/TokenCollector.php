@@ -21,13 +21,13 @@ use Smarty_Internal_SmartyTemplateCompiler;
  */
 class TokenCollector extends Smarty_Internal_SmartyTemplateCompiler {
 	/** @var array */
-	private static $tokens = array();
+	private $tokens = array();
 
 	/**
 	 * @return array
 	 */
-	public static function getTokens() {
-		return self::$tokens;
+	public function getTokens() {
+		return $this->tokens;
 	}
 
 	/**
@@ -35,8 +35,7 @@ class TokenCollector extends Smarty_Internal_SmartyTemplateCompiler {
 	 */
 	public function compileTag($tag, $args, $parameter = array()) {
 		$line = $this->parser->lex->line;
-
-		self::$tokens[] = new Token\Tag($line, $tag, $args, $parameter);
+		$this->tokens[] = new Token\Tag($line, $tag, $args, $parameter);
 
 		return parent::compileTag($tag, $args, $parameter);
 	}
@@ -46,8 +45,7 @@ class TokenCollector extends Smarty_Internal_SmartyTemplateCompiler {
 	 */
 	public function processText($text) {
 		$line = $this->parser->lex->line;
-
-		self::$tokens[] = new Token\Text($line, $text);
+		$this->tokens[] = new Token\Text($line, $text);
 
 		return parent::processText($text);
 	}
