@@ -8,3 +8,4 @@ composer.phar
 /vendor/
 /composer.lock
 /.php_cs.cache
+templates_c

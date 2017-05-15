@@ -20,9 +20,17 @@
 			"SmartyGettext\\": "src"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"SmartyGettext\\Test\\": "tests"
+		}
+	},
 	"require": {
 		"php": "^5.3 || ^7.0",
 		"symfony/console": "~2.8|~3.0",
 		"symfony/finder": "~2.8|~3.0"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "~4.8"
 	}
 }
