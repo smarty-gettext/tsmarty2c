@@ -26,12 +26,15 @@ class TokenizerTest extends TestCase {
 		// {t name="sagi"}
 		$this->assertEquals('t', $tokens[1]->name);
 		$this->assertEquals('"sagi"', $tokens[1]->arguments[0]['name']);
+		$this->assertEquals(2, $tokens[1]->line);
 
 		// text content
 		$this->assertEquals('my name is %1', $tokens[2]->text);
+		$this->assertEquals(2, $tokens[2]->line);
 
 		// {/t}
 		$this->assertEquals('tclose', $tokens[3]->name);
+		$this->assertEquals(2, $tokens[3]->line);
 	}
 
 	/**
