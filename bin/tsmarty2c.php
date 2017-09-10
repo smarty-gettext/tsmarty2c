@@ -46,4 +46,5 @@ if (!$loader()) {
 }
 
 $app = new Application('Smarty Gettext Translation String Ripper', '0.1.0');
+$app->setDefaultCommand('extract', true);
 $app->run();
