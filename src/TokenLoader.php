@@ -28,6 +28,7 @@ class TokenLoader extends PoInitSmarty {
 	 * @param TranslateTag[] $tokens
 	 * @param string $refname source identification used for PO reference comments
 	 * @return PoFile
+	 * @throws InvalidArgumentException
 	 */
 	public function loadTokens($tokens, $refname) {
 		if (!($this->poFile instanceof PoFile)) {
@@ -47,6 +48,7 @@ class TokenLoader extends PoInitSmarty {
 	 * @param TranslateTag $t
 	 * @param string $refname
 	 * @return PoEntry
+	 * @throws InvalidArgumentException
 	 */
 	private function createEntry($t, $refname) {
 		$message = $t->getMessage();
