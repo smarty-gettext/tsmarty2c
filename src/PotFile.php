@@ -30,20 +30,14 @@ class PotFile {
 	private $loader;
 
 	/** @var PoFile */
-	private $pofile;
+	private $file;
 
-	/**
-	 * PotFile constructor.
-	 *
-	 * @param string $templateFile
-	 * @throws FileNotReadableException
-	 */
-	public function __construct($templateFile = null) {
+	public function __construct() {
 		$smarty = new Smarty();
 		$smarty->registerDefaultPluginHandler(new PluginLoader());
 
-		$this->pofile = $this->getPoFile($templateFile);
-		$this->loader = new TokenLoader($smarty, $this->pofile);
+		$this->file = new PoFile();
+		$this->loader = new TokenLoader($smarty, $this->file);
 		$this->parser = new TokenParser($smarty);
 	}
 
@@ -59,13 +53,27 @@ class PotFile {
 	}
 
 	/**
+	 * Set header from existing .pot file
+	 *
+	 * @param string $potFile
+	 * @throws FileNotReadableException
+	 */
+	public function setHeaderFromFile($potFile) {
+		$poFile = new PoFile();
+		$poFile->readPoFile($potFile);
+		$header = $poFile->getHeaderEntry();
+
+		$this->file->setHeaderEntry($header);
+	}
+
+	/**
 	 * Write .pot file to $filename
 	 *
 	 * @param string $filename
 	 * @throws FileNotWritableException
 	 */
 	public function writeFile($filename) {
-		$this->pofile->writePoFile($filename);
+		$this->file->writePoFile($filename);
 	}
 
 	/**
@@ -74,32 +82,6 @@ class PotFile {
 	 * @return string
 	 */
 	public function getOutput() {
-		return $this->pofile->dumpString();
-	}
-
-	/**
-	 * Create empty PoFile.
-	 * Initializes header from $potFile if such file exists.
-	 *
-	 * @param string $potFile default .pot where to initialize header
-	 * @return PoFile
-	 * @throws FileNotReadableException
-	 */
-	private function getPoFile($potFile) {
-		// load header from previous .pot
-		if (file_exists($potFile)) {
-			$poFile = new PoFile();
-			$poFile->readPoFile($potFile);
-			$header = $poFile->getHeaderEntry();
-		} else {
-			$header = null;
-		}
-
-		$poFile = new PoFile();
-		if ($header) {
-			$poFile->setHeaderEntry($header);
-		}
-
-		return $poFile;
+		return $this->file->dumpString();
 	}
 }

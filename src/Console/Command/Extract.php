@@ -14,6 +14,7 @@
 
 namespace SmartyGettext\Console\Command;
 
+use Geekwright\Po\Exceptions\FileNotReadableException;
 use Geekwright\Po\Exceptions\FileNotWritableException;
 use SmartyGettext\PotFile;
 use Symfony\Component\Console\Command\Command;
@@ -50,6 +51,7 @@ EOT
 	 * @param InputInterface $input
 	 * @param OutputInterface $output
 	 * @return void
+	 * @throws FileNotReadableException
 	 * @throws FileNotWritableException
 	 * @throws InvalidArgumentException
 	 */
@@ -58,7 +60,7 @@ EOT
 		$templateFiles = $this->findFiles($args);
 
 		$outputFile = $input->getOption('output');
-		$potFile = new PotFile($outputFile);
+		$potFile = new PotFile();
 
 		foreach ($templateFiles as $file) {
 			$output->writeln("Process <info>{$file->getPathname()}</info>");
@@ -66,6 +68,9 @@ EOT
 		}
 
 		if ($outputFile) {
+			if (file_exists($outputFile)) {
+				$potFile->setHeaderFromFile($outputFile);
+			}
 			$potFile->writeFile($outputFile);
 
 		} else {
