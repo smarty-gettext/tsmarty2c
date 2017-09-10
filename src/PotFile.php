@@ -84,4 +84,11 @@ class PotFile {
 	public function getOutput() {
 		return $this->file->dumpString();
 	}
+
+	/**
+	 * @return PoFile
+	 */
+	public function getPoFile() {
+		return $this->file;
+	}
 }
