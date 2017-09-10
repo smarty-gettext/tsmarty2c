@@ -14,8 +14,7 @@
 
 namespace SmartyGettext\Test;
 
-use Geekwright\Po\PoFile;
-use SmartyGettext\PoInitSmartyGettext;
+use Smarty;
 use SmartyGettext\Tokenizer\TokenParser;
 
 class TokenParserTest extends TestCase
@@ -25,7 +24,8 @@ class TokenParserTest extends TestCase
 
     public function setUp()
     {
-        $this->tokenParser = new TokenParser();
+	    $smarty = new Smarty();
+	    $this->tokenParser = new TokenParser($smarty);
     }
 
     /**

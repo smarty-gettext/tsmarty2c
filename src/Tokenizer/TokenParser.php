@@ -22,9 +22,8 @@ class TokenParser
     /** @var Tokenizer */
     private $tokenizer;
 
-    public function __construct()
+    public function __construct(Smarty $smarty)
     {
-        $smarty = new Smarty();
         $this->tokenizer = new Tokenizer($smarty);
     }
 
