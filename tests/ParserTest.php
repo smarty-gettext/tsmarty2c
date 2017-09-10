@@ -24,6 +24,11 @@ class ParserTest extends TestCase {
 		$this->assertNotNull($res);
 	}
 
+	public function testParseUnknownBlock() {
+		$res = $this->parseTemplate(__DIR__ . '/data/custom_block_single_tag.tpl');
+		$this->assertNotNull($res);
+	}
+
 	private function parseTemplate($filename) {
 		$file = new SplFileInfo($filename, $filename, $filename);
 		$p = new PotFile();
