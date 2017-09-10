@@ -52,13 +52,13 @@ class TokenParser
         $topen = null;
         foreach ($tokens as $i => $token) {
             $previous = $i > 0 ? $tokens[$i - 1] : null;
-            if ($token instanceof Token\Tag && $token->name == 't') {
+            if ($token instanceof Token\Tag && $token->name === 't') {
                 $topen = $token;
             } elseif ($topen &&
-                ($token instanceof Token\Tag && $token->name == 'tclose')
+                ($token instanceof Token\Tag && $token->name === 'tclose')
                 && $previous instanceof Token\Text
             ) {
-                $tags[] = new TranslateTag($previous->text, $topen->arguments, $token->line);
+                $tags[] = new TranslateTag($previous->text, $topen->arguments, $topen->line);
                 $topen = null;
             }
         }

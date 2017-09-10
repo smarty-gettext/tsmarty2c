@@ -43,6 +43,55 @@ class ParserTest extends TestCase {
 		$this->assertNotNull($e->get(PoTokens::PLURAL), "has plural");
 	}
 
+	public function testLineNumbers() {
+		$fileName = __DIR__ . '/data/linenumbers.tpl';
+		$p = $this->parseTemplate($fileName);
+		$this->assertNotNull($p);
+
+		$e = $this->getEntries($p);
+		$this->assertCount(3, $e);
+
+		$expected = array(
+			array(
+				"$fileName:6",
+			),
+			array(
+				"$fileName:8",
+			),
+			array(
+				"$fileName:11",
+			),
+		);
+		$this->assertReferences($expected, $e);
+	}
+
+	/**
+	 * Assert that references are equal to expected
+	 *
+	 * @param array $expected
+	 * @param PoEntry[] $entries
+	 */
+	private function assertReferences($expected, $entries) {
+		$refs = array();
+		foreach ($entries as $i => $e) {
+			$refs[$i] = $e->get(PoTokens::REFERENCE);
+		}
+
+		$this->assertEquals($expected, $refs);
+	}
+
+	/**
+	 * Flatten entries to be index based
+	 *
+	 * @param PotFile $p
+	 * @return PoEntry[]
+	 */
+	private function getEntries($p) {
+		$e = $p->getPoFile()->getEntries();
+
+		return array_values($e);
+	}
+
 	private function parseTemplate($filename) {
 		$file = new SplFileInfo($filename, $filename, $filename);
 		$p = new PotFile();
