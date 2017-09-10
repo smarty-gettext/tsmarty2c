@@ -32,11 +32,17 @@ class PotFile {
 	/** @var PoFile */
 	private $pofile;
 
-	public function __construct($outputFile) {
+	/**
+	 * PotFile constructor.
+	 *
+	 * @param string $templateFile
+	 * @throws FileNotReadableException
+	 */
+	public function __construct($templateFile = null) {
 		$smarty = new Smarty();
 		$smarty->registerDefaultPluginHandler(new PluginLoader());
 
-		$this->pofile = $this->getPoFile($outputFile);
+		$this->pofile = $this->getPoFile($templateFile);
 		$this->loader = new TokenLoader($smarty, $this->pofile);
 		$this->parser = new TokenParser($smarty);
 	}
