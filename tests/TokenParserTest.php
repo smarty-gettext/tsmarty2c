@@ -24,8 +24,8 @@ class TokenParserTest extends TestCase
 
     public function setUp()
     {
-	    $smarty = new Smarty();
-	    $this->tokenParser = new TokenParser($smarty);
+        $smarty = new Smarty();
+        $this->tokenParser = new TokenParser($smarty);
     }
 
     /**
@@ -40,10 +40,13 @@ class TokenParserTest extends TestCase
     public function dataProvider()
     {
         return array(
-            array('1.html', array(
-                "{t name='sagi'}my name is %1{/t}\n",
-                "{t 1='one' 2='two ' 3='three'}The 1st parameter is %1, the 2nd is %2\nand the 3nd %3.{/t}\n",
-            )),
+            array(
+                '1.html',
+                array(
+                    "{t name='sagi'}my name is %1{/t}\n",
+                    "{t 1='one' 2='two ' 3='three'}The 1st parameter is %1, the 2nd is %2\nand the 3nd %3.{/t}\n",
+                )
+            ),
         );
     }
 

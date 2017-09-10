@@ -19,34 +19,38 @@ use Smarty_Internal_SmartyTemplateCompiler;
 /**
  * Wrapper to grab tokens from Smarty Template Compiler as they get parsed from template.
  */
-class TokenCollector extends Smarty_Internal_SmartyTemplateCompiler {
-	/** @var array */
-	private $tokens = array();
+class TokenCollector extends Smarty_Internal_SmartyTemplateCompiler
+{
+    /** @var array */
+    private $tokens = array();
 
-	/**
-	 * @return array
-	 */
-	public function getTokens() {
-		return $this->tokens;
-	}
+    /**
+     * @return array
+     */
+    public function getTokens()
+    {
+        return $this->tokens;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function compileTag($tag, $args, $parameter = array()) {
-		$line = $this->parser->lex->taglineno;
-		$this->tokens[] = new Token\Tag($line, $tag, $args);
+    /**
+     * {@inheritdoc}
+     */
+    public function compileTag($tag, $args, $parameter = array())
+    {
+        $line = $this->parser->lex->taglineno;
+        $this->tokens[] = new Token\Tag($line, $tag, $args);
 
-		return parent::compileTag($tag, $args, $parameter);
-	}
+        return parent::compileTag($tag, $args, $parameter);
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function processText($text) {
-		$line = $this->parser->lex->taglineno;
-		$this->tokens[] = new Token\Text($line, $text);
+    /**
+     * {@inheritdoc}
+     */
+    public function processText($text)
+    {
+        $line = $this->parser->lex->taglineno;
+        $this->tokens[] = new Token\Text($line, $text);
 
-		return parent::processText($text);
-	}
+        return parent::processText($text);
+    }
 }

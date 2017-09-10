@@ -17,32 +17,35 @@ namespace SmartyGettext\Tokenizer;
 use Smarty;
 use Smarty_Internal_Template;
 
-class Tokenizer {
-	/** @var Smarty */
-	private $smarty;
+class Tokenizer
+{
+    /** @var Smarty */
+    private $smarty;
 
-	/**
-	 * Compiler constructor.
-	 *
-	 * @param Smarty $smarty
-	 */
-	public function __construct(Smarty $smarty) {
-		$this->smarty = $smarty;
-	}
+    /**
+     * Compiler constructor.
+     *
+     * @param Smarty $smarty
+     */
+    public function __construct(Smarty $smarty)
+    {
+        $this->smarty = $smarty;
+    }
 
-	/**
-	 * @param string $templateFile
-	 * @return array
-	 */
-	public function getTokens($templateFile) {
-		/** @var Smarty_Internal_Template $template */
-		$template = $this->smarty->createTemplate($templateFile, $this->smarty);
-		$template->source->compiler_class = __NAMESPACE__ . '\\TokenCollector';
+    /**
+     * @param string $templateFile
+     * @return array
+     */
+    public function getTokens($templateFile)
+    {
+        /** @var Smarty_Internal_Template $template */
+        $template = $this->smarty->createTemplate($templateFile, $this->smarty);
+        $template->source->compiler_class = __NAMESPACE__ . '\\TokenCollector';
 
-		/** @var TokenCollector $compiler */
-		$compiler = $template->compiler;
-		$compiler->compileTemplate($template);
+        /** @var TokenCollector $compiler */
+        $compiler = $template->compiler;
+        $compiler->compileTemplate($template);
 
-		return $compiler->getTokens();
-	}
+        return $compiler->getTokens();
+    }
 }

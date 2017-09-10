@@ -21,53 +21,56 @@ use Geekwright\Po\PoTokens;
 use InvalidArgumentException;
 use SmartyGettext\Tokenizer\Tag\TranslateTag;
 
-class TokenLoader extends PoInitSmarty {
-	/**
-	 * Inspect the supplied source, capture gettext references as a PoFile object.
-	 *
-	 * @param TranslateTag[] $tags
-	 * @param string $refName source identification used for PO reference comments
-	 * @return PoFile
-	 * @throws InvalidArgumentException
-	 */
-	public function loadTags($tags, $refName) {
-		if (!($this->poFile instanceof PoFile)) {
-			$this->poFile = new PoFile;
-		}
+class TokenLoader extends PoInitSmarty
+{
+    /**
+     * Inspect the supplied source, capture gettext references as a PoFile object.
+     *
+     * @param TranslateTag[] $tags
+     * @param string $refName source identification used for PO reference comments
+     * @return PoFile
+     * @throws InvalidArgumentException
+     */
+    public function loadTags($tags, $refName)
+    {
+        if (!($this->poFile instanceof PoFile)) {
+            $this->poFile = new PoFile;
+        }
 
-		foreach ($tags as $tag) {
-			$entry = $this->createEntry($tag, $refName);
-			$this->checkPhpFormatFlag($entry);
-			$this->poFile->mergeEntry($entry);
-		}
+        foreach ($tags as $tag) {
+            $entry = $this->createEntry($tag, $refName);
+            $this->checkPhpFormatFlag($entry);
+            $this->poFile->mergeEntry($entry);
+        }
 
-		return $this->poFile;
-	}
+        return $this->poFile;
+    }
 
-	/**
-	 * @param TranslateTag $tag
-	 * @param string $refName
-	 * @return PoEntry
-	 * @throws InvalidArgumentException
-	 */
-	private function createEntry($tag, $refName) {
-		$message = $tag->getMessage();
-		if (!$message) {
-			throw new InvalidArgumentException('Empty message');
-		}
+    /**
+     * @param TranslateTag $tag
+     * @param string $refName
+     * @return PoEntry
+     * @throws InvalidArgumentException
+     */
+    private function createEntry($tag, $refName)
+    {
+        $message = $tag->getMessage();
+        if (!$message) {
+            throw new InvalidArgumentException('Empty message');
+        }
 
-		$entry = new PoEntry;
-		$entry->add(PoTokens::REFERENCE, $refName . ':' . $tag->getLine());
-		$entry->set(PoTokens::MESSAGE, $this->escapeForPo($message));
+        $entry = new PoEntry;
+        $entry->add(PoTokens::REFERENCE, $refName . ':' . $tag->getLine());
+        $entry->set(PoTokens::MESSAGE, $this->escapeForPo($message));
 
-		if ($context = $tag->getContext()) {
-			$entry->set(PoTokens::CONTEXT, $this->escapeForPo($context));
-		}
+        if ($context = $tag->getContext()) {
+            $entry->set(PoTokens::CONTEXT, $this->escapeForPo($context));
+        }
 
-		if ($plural = $tag->getPlural()) {
-			$entry->set(PoTokens::PLURAL, $this->escapeForPo($plural));
-		}
+        if ($plural = $tag->getPlural()) {
+            $entry->set(PoTokens::PLURAL, $this->escapeForPo($plural));
+        }
 
-		return $entry;
-	}
+        return $entry;
+    }
 }

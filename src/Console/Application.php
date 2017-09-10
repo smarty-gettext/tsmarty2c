@@ -16,12 +16,14 @@ namespace SmartyGettext\Console;
 
 use Symfony\Component\Console\Application as BaseApplication;
 
-class Application extends BaseApplication {
-	protected function getDefaultCommands() {
-		$commands = parent::getDefaultCommands();
+class Application extends BaseApplication
+{
+    protected function getDefaultCommands()
+    {
+        $commands = parent::getDefaultCommands();
 
-		$commands[] = new Command\Extract();
+        $commands[] = new Command\Extract();
 
-		return $commands;
-	}
+        return $commands;
+    }
 }

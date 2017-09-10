@@ -21,74 +21,81 @@ use Geekwright\Po\Exceptions\FileNotReadableException;
 use Geekwright\Po\PoFile;
 use Symfony\Component\Finder\SplFileInfo;
 
-class PotFile {
+class PotFile
+{
 
-	/** @var TokenParser */
-	private $parser;
+    /** @var TokenParser */
+    private $parser;
 
-	/** @var TokenLoader */
-	private $loader;
+    /** @var TokenLoader */
+    private $loader;
 
-	/** @var PoFile */
-	private $file;
+    /** @var PoFile */
+    private $file;
 
-	public function __construct() {
-		$smarty = new Smarty();
-		$smarty->registerDefaultPluginHandler(new PluginLoader());
+    public function __construct()
+    {
+        $smarty = new Smarty();
+        $smarty->registerDefaultPluginHandler(new PluginLoader());
 
-		$this->file = new PoFile();
-		$this->loader = new TokenLoader($smarty, $this->file);
-		$this->parser = new TokenParser($smarty);
-	}
+        $this->file = new PoFile();
+        $this->loader = new TokenLoader($smarty, $this->file);
+        $this->parser = new TokenParser($smarty);
+    }
 
-	/**
-	 * Load translation tags from $file
-	 *
-	 * @param SplFileInfo $file
-	 */
-	public function loadTemplate(SplFileInfo $file) {
-		$tags = $this->parser->getTranslateTags($file->getPathname());
+    /**
+     * Load translation tags from $file
+     *
+     * @param SplFileInfo $file
+     */
+    public function loadTemplate(SplFileInfo $file)
+    {
+        $tags = $this->parser->getTranslateTags($file->getPathname());
 
-		$this->loader->loadTags($tags, $file->getRelativePath());
-	}
+        $this->loader->loadTags($tags, $file->getRelativePath());
+    }
 
-	/**
-	 * Set header from existing .pot file
-	 *
-	 * @param string $potFile
-	 * @throws FileNotReadableException
-	 */
-	public function setHeaderFromFile($potFile) {
-		$poFile = new PoFile();
-		$poFile->readPoFile($potFile);
-		$header = $poFile->getHeaderEntry();
+    /**
+     * Set header from existing .pot file
+     *
+     * @param string $potFile
+     * @throws FileNotReadableException
+     */
+    public function setHeaderFromFile($potFile)
+    {
+        $poFile = new PoFile();
+        $poFile->readPoFile($potFile);
+        $header = $poFile->getHeaderEntry();
 
-		$this->file->setHeaderEntry($header);
-	}
+        $this->file->setHeaderEntry($header);
+    }
 
-	/**
-	 * Write .pot file to $filename
-	 *
-	 * @param string $filename
-	 * @throws FileNotWritableException
-	 */
-	public function writeFile($filename) {
-		$this->file->writePoFile($filename);
-	}
+    /**
+     * Write .pot file to $filename
+     *
+     * @param string $filename
+     * @throws FileNotWritableException
+     */
+    public function writeFile($filename)
+    {
+        $this->file->writePoFile($filename);
+    }
 
-	/**
-	 * Get string representation of POT
-	 *
-	 * @return string
-	 */
-	public function getOutput() {
-		return $this->file->dumpString();
-	}
+    /**
+     * Get string representation of POT
+     *
+     * @return string
+     */
+    public function getOutput()
+    {
+        return $this->file->dumpString();
+    }
 
-	/**
-	 * @return PoFile
-	 */
-	public function getPoFile() {
-		return $this->file;
-	}
+    /**
+     * @return PoFile
+     */
+    public function getPoFile()
+    {
+        return $this->file;
+    }
 }

@@ -22,27 +22,27 @@ use SmartyGettext\Console\Application;
  * @return boolean
  */
 $loader = function () {
-	$files = array(
-		__DIR__ . '/../../../autoload.php',  // composer dependency
-		__DIR__ . '/../vendor/autoload.php', // stand-alone package
-	);
-	foreach ($files as $file) {
-		if (is_file($file)) {
-			require_once $file;
+    $files = array(
+        __DIR__ . '/../../../autoload.php',  // composer dependency
+        __DIR__ . '/../vendor/autoload.php', // stand-alone package
+    );
+    foreach ($files as $file) {
+        if (is_file($file)) {
+            require_once $file;
 
-			return true;
-		}
-	}
+            return true;
+        }
+    }
 
-	return false;
+    return false;
 };
 
 if (!$loader()) {
-	die(
-		'You need to set up the project dependencies using the following commands:' . PHP_EOL .
-		'curl -sS https://getcomposer.org/installer | php' . PHP_EOL .
-		'php composer.phar install' . PHP_EOL
-	);
+    die(
+        'You need to set up the project dependencies using the following commands:' . PHP_EOL .
+        'curl -sS https://getcomposer.org/installer | php' . PHP_EOL .
+        'php composer.phar install' . PHP_EOL
+    );
 }
 
 $app = new Application('Smarty Gettext Translation String Ripper', '0.1.0');
