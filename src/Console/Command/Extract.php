@@ -14,9 +14,10 @@
 
 namespace SmartyGettext\Console\Command;
 
-use InvalidArgumentException;
+use Geekwright\Po\Exceptions\FileNotWritableException;
 use SmartyGettext\PotFile;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -49,6 +50,7 @@ EOT
 	 * @param InputInterface $input
 	 * @param OutputInterface $output
 	 * @return void
+	 * @throws FileNotWritableException
 	 * @throws InvalidArgumentException
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output) {
