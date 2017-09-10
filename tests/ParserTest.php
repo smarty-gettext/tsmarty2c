@@ -51,32 +51,33 @@ class ParserTest extends TestCase {
 		$e = $this->getEntries($p);
 		$this->assertCount(3, $e);
 
-		$refs = array(
-			"$fileName:6",
+		$expected = array(
+			array(
+				"$fileName:6",
+			),
+			array(
+				"$fileName:8",
+			),
+			array(
+				"$fileName:11",
+			),
 		);
-		$this->assertReferences($refs, $e[0]);
-
-		$refs = array(
-			"$fileName:9",
-		);
-		$this->assertReferences($refs, $e[1]);
-
-		$refs = array(
-			"$fileName:13",
-		);
-		$this->assertReferences($refs, $e[2]);
+		$this->assertReferences($expected, $e);
 	}
 
 	/**
 	 * Assert that references are equal to expected
 	 *
 	 * @param array $expected
-	 * @param PoEntry $entry
+	 * @param PoEntry[] $entries
 	 */
-	private function assertReferences($expected, PoEntry $entry) {
-		$ref = $entry->get(PoTokens::REFERENCE);
-		$this->assertCount(count($expected), $ref);
-		$this->assertEquals($expected, $ref);
+	private function assertReferences($expected, $entries) {
+		$refs = array();
+		foreach ($entries as $i => $e) {
+			$refs[$i] = $e->get(PoTokens::REFERENCE);
+		}
+
+		$this->assertEquals($expected, $refs);
 	}
 
 	/**
