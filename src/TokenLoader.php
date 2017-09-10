@@ -62,7 +62,7 @@ class TokenLoader extends PoInitSmarty {
 			$entry->set(PoTokens::CONTEXT, $this->escapeForPo($context));
 		}
 
-		if ($plural = $t->getContext()) {
+		if ($plural = $t->getPlural()) {
 			$entry->set(PoTokens::PLURAL, $this->escapeForPo($plural));
 		}
 
