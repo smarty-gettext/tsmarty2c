@@ -34,6 +34,7 @@ class PotFile {
 
 	public function __construct($outputFile) {
 		$smarty = new Smarty();
+		$smarty->registerDefaultPluginHandler(new PluginLoader());
 
 		$this->pofile = $this->getPoFile($outputFile);
 		$this->loader = new TokenLoader($smarty, $this->pofile);
