@@ -15,6 +15,7 @@
 namespace SmartyGettext\Console\Command;
 
 use InvalidArgumentException;
+use SmartyGettext\PotFile;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -48,15 +49,38 @@ EOT
 	 * @param InputInterface $input
 	 * @param OutputInterface $output
 	 * @return void
+	 * @throws InvalidArgumentException
 	 */
 	protected function execute(InputInterface $input, OutputInterface $output) {
 		$args = $input->getArgument('arguments');
-		$files = $this->findFiles($args);
+		$templateFiles = $this->findFiles($args);
+
+		$outputFile = $input->getOption('output');
+		$potFile = new PotFile($outputFile);
+
+		foreach ($templateFiles as $file) {
+			$output->writeln("Process <info>{$file->getPathname()}</info>");
+			$potFile->loadTemplate($file);
+		}
+
+		if ($outputFile) {
+			$potFile->writeFile($outputFile);
+
+		} else {
+			$output->writeln($potFile->getOutput());
+		}
 
 		$output->writeln('<info>Done</info>');
 	}
 
-	private function findFiles($args) {
+	/**
+	 * Find files from given paths.
+	 *
+	 * @param string[] $paths files or dirs to find
+	 * @return Finder
+	 * @throws InvalidArgumentException
+	 */
+	private function findFiles($paths) {
 		$files = array();
 
 		$finder = new Finder();
@@ -64,11 +88,13 @@ EOT
 			->files()
 			->name('*.tpl');
 
-		foreach ($args as $arg) {
+		foreach ($paths as $arg) {
 			if (is_dir($arg)) {
 				$finder->in($arg);
 			} elseif (is_file($arg)) {
-				$files[] = new SplFileInfo($arg, null, null);
+				$relativePath = $arg;
+				$relativePathName = $arg;
+				$files[] = new SplFileInfo($arg, $relativePath, $relativePathName);
 			} else {
 				throw new InvalidArgumentException("Not file or dir: $arg");
 			}
