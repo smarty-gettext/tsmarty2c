@@ -25,18 +25,18 @@ class TokenLoader extends PoInitSmarty {
 	/**
 	 * Inspect the supplied source, capture gettext references as a PoFile object.
 	 *
-	 * @param TranslateTag[] $tokens
-	 * @param string $refname source identification used for PO reference comments
+	 * @param TranslateTag[] $tags
+	 * @param string $refName source identification used for PO reference comments
 	 * @return PoFile
 	 * @throws InvalidArgumentException
 	 */
-	public function loadTokens($tokens, $refname) {
+	public function loadTags($tags, $refName) {
 		if (!($this->poFile instanceof PoFile)) {
 			$this->poFile = new PoFile;
 		}
 
-		foreach ($tokens as $t) {
-			$entry = $this->createEntry($t, $refname);
+		foreach ($tags as $tag) {
+			$entry = $this->createEntry($tag, $refName);
 			$this->checkPhpFormatFlag($entry);
 			$this->poFile->mergeEntry($entry);
 		}
@@ -45,26 +45,26 @@ class TokenLoader extends PoInitSmarty {
 	}
 
 	/**
-	 * @param TranslateTag $t
-	 * @param string $refname
+	 * @param TranslateTag $tag
+	 * @param string $refName
 	 * @return PoEntry
 	 * @throws InvalidArgumentException
 	 */
-	private function createEntry($t, $refname) {
-		$message = $t->getMessage();
+	private function createEntry($tag, $refName) {
+		$message = $tag->getMessage();
 		if (!$message) {
 			throw new InvalidArgumentException('Empty message');
 		}
 
 		$entry = new PoEntry;
-		$entry->add(PoTokens::REFERENCE, $refname . ':' . $t->getLine());
+		$entry->add(PoTokens::REFERENCE, $refName . ':' . $tag->getLine());
 		$entry->set(PoTokens::MESSAGE, $this->escapeForPo($message));
 
-		if ($context = $t->getContext()) {
+		if ($context = $tag->getContext()) {
 			$entry->set(PoTokens::CONTEXT, $this->escapeForPo($context));
 		}
 
-		if ($plural = $t->getPlural()) {
+		if ($plural = $tag->getPlural()) {
 			$entry->set(PoTokens::PLURAL, $this->escapeForPo($plural));
 		}
 

@@ -49,7 +49,7 @@ class PotFile {
 	public function loadTemplate(SplFileInfo $file) {
 		$tags = $this->parser->getTranslateTags($file->getPathname());
 
-		$this->loader->loadTokens($tags, $file->getRelativePath());
+		$this->loader->loadTags($tags, $file->getRelativePath());
 	}
 
 	/**
