@@ -4,13 +4,13 @@ When writing entries, refer to [Keep a CHANGELOG](http://keepachangelog.com/) fo
 
 All notable changes to this project will be documented in this file.
 
-## [0.1.1]
+## [0.1.1] - 2017-09-11
 
 - define dummy plugin handlers for unknown tags, #6
 - fix plural handling, #7
 - fix line number context to be line of opening tag, #8
 
-[0.1.1]: https://github.com/smarty-gettext/tsmarty2c/compare/0.1.0...master
+[0.1.1]: https://github.com/smarty-gettext/tsmarty2c/compare/0.1.0...0.1.1
 
 ## [0.1.0] - 2017-09-10
 
