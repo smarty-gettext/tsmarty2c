@@ -35,6 +35,7 @@ class Extract extends Command
             ->setDescription('Extract POT strings')
             ->addArgument('arguments', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Files/Directories to scan')
             ->addOption('--output', '-o', InputOption::VALUE_REQUIRED, 'Output filename')
+            ->addOption('--delimiters', '-d', InputOption::VALUE_REQUIRED, 'Set Smarty delimiters')
             ->setHelp(
                 <<<EOT
 <info>%command.full_name% -o template.pot <filename or directory> <file2> <..></info>
@@ -44,6 +45,11 @@ If a parameter is a directory, the template files within will be parsed.
 The script rips gettext strings from Smarty file,
 and prints them to stdout in already gettext encoded format, which you can
 later manipulate with standard gettext tools.
+
+If you have custom delimiters, for example "<info>[% </info>" and "<info> %]</info>",
+pass them as comma separated value:
+
+<info>%command.full_name% --delimiters '[% , %]' template.pot <filename or directory> <file2> <..></info>
 
 EOT
             );
@@ -65,6 +71,12 @@ EOT
         $outputFile = $input->getOption('output');
         $potFile = new PotFile();
 
+        $delimiters = $input->getOption('delimiters');
+        if ($delimiters) {
+            list($leftDelimiter, $rightDelimiter) = explode(',', $delimiters);
+            $potFile->setDelimiters($leftDelimiter, $rightDelimiter);
+        }
+
         foreach ($templateFiles as $file) {
             $output->writeln("Process <info>{$file->getPathname()}</info>");
             $potFile->loadTemplate($file);
@@ -75,7 +87,6 @@ EOT
                 $potFile->setHeaderFromFile($outputFile);
             }
             $potFile->writeFile($outputFile);
-
         } else {
             $output->writeln($potFile->getOutput());
         }
