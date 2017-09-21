@@ -4,6 +4,10 @@ When writing entries, refer to [Keep a CHANGELOG](http://keepachangelog.com/) fo
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2]
+
+[0.1.2]: https://github.com/smarty-gettext/tsmarty2c/compare/0.1.1...master
+
 ## [0.1.1] - 2017-09-11
 
 - define dummy plugin handlers for unknown tags, #6
