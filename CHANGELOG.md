@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ## [0.1.2]
 
+- add support for overriding delimiters, #9
+
 [0.1.2]: https://github.com/smarty-gettext/tsmarty2c/compare/0.1.1...master
 
 ## [0.1.1] - 2017-09-11
