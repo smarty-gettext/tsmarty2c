@@ -71,6 +71,25 @@ class ParserTest extends TestCase
     }
 
     /**
+     * @see https://github.com/smarty-gettext/smarty-gettext/issues/20
+     */
+    public function testDifferentSeparators()
+    {
+        $fileName = __DIR__ . '/data/different-separator.tpl';
+        $p = $this->parseTemplate($fileName, function (PotFile $p) {
+            $p->setDelimiters('[% ', ' %]');
+        });
+        $this->assertNotNull($p);
+
+        $entries = $p->getPoFile()->getEntries();
+        $this->assertCount(1, $entries);
+
+        /** @var PoEntry $e */
+        $e = current($entries);
+        $this->assertNotNull($e->get(PoTokens::MESSAGE), "Now with 20% discount!");
+    }
+
+    /**
      * Assert that references are equal to expected
      *
      * @param array $expected
@@ -99,10 +118,18 @@ class ParserTest extends TestCase
         return array_values($e);
     }
 
-    private function parseTemplate($filename)
+    /**
+     * @param $filename
+     * @param Callable $cb
+     * @return PotFile
+     */
+    private function parseTemplate($filename, $cb = null)
     {
         $file = new SplFileInfo($filename, $filename, $filename);
         $p = new PotFile();
+        if ($cb) {
+            $cb($p);
+        }
         $p->loadTemplate($file);
 
         return $p;

@@ -23,6 +23,8 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class PotFile
 {
+    /** @var Smarty */
+    private $smarty;
 
     /** @var TokenParser */
     private $parser;
@@ -35,12 +37,12 @@ class PotFile
 
     public function __construct()
     {
-        $smarty = new Smarty();
-        $smarty->registerDefaultPluginHandler(new PluginLoader());
+        $this->smarty = new Smarty();
+        $this->smarty->registerDefaultPluginHandler(new PluginLoader());
 
         $this->file = new PoFile();
-        $this->loader = new TokenLoader($smarty, $this->file);
-        $this->parser = new TokenParser($smarty);
+        $this->loader = new TokenLoader($this->smarty, $this->file);
+        $this->parser = new TokenParser($this->smarty);
     }
 
     /**
@@ -68,6 +70,16 @@ class PotFile
         $header = $poFile->getHeaderEntry();
 
         $this->file->setHeaderEntry($header);
+    }
+
+    /**
+     * @param string $leftDelimiter
+     * @param string $rightDelimiter
+     */
+    public function setDelimiters($leftDelimiter, $rightDelimiter)
+    {
+        $this->smarty->setLeftDelimiter($leftDelimiter);
+        $this->smarty->setRightDelimiter($rightDelimiter);
     }
 
     /**
