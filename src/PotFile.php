@@ -16,6 +16,7 @@ namespace SmartyGettext;
 
 use Geekwright\Po\Exceptions\FileNotWritableException;
 use Smarty;
+use SmartyGettext\Tokenizer\Tag\TranslateTag;
 use SmartyGettext\Tokenizer\TokenParser;
 use Geekwright\Po\Exceptions\FileNotReadableException;
 use Geekwright\Po\PoFile;
@@ -46,15 +47,26 @@ class PotFile
     }
 
     /**
+     * @param string $filename
+     * @return TranslateTag[]
+     * @internal
+     */
+    public function getTags($filename)
+    {
+        return $this->parser->getTranslateTags($filename);
+    }
+
+    /**
      * Load translation tags from $file
      *
      * @param SplFileInfo $file
      */
     public function loadTemplate(SplFileInfo $file)
     {
-        $tags = $this->parser->getTranslateTags($file->getPathname());
-
-        $this->loader->loadTags($tags, $file->getRelativePath());
+        $this->loader->loadTags(
+            $this->getTags($file->getPathname()),
+            $file->getRelativePath()
+        );
     }
 
     /**
