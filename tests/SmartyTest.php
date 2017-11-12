@@ -29,6 +29,17 @@ class SmartyTest extends TestCase
         $this->assertEquals($exp, $p);
     }
 
+    /**
+     * Smarty parses nested blocks ("t" inside "reply_button"):
+     * {reply_button title="{t}reply as email{/t}"}
+     */
+    public function testTranslationInArgument()
+    {
+        $p = $this->renderTemplate(__DIR__ . '/data/translation_in_argument.tpl');
+        $exp = '<a title="reply as email"><i class="fa fa-reply reply_as_email"  aria-hidden="true"></i></a>';
+        $this->assertEquals($exp, $p);
+    }
+
     private function renderTemplate($template, $params = array())
     {
         $smarty = new Smarty();
