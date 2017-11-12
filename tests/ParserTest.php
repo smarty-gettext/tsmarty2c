@@ -89,6 +89,14 @@ class ParserTest extends TestCase
         $this->assertNotNull($e->get(PoTokens::MESSAGE), "Now with 20% discount!");
     }
 
+    public function testTranslationWithCondition() {
+        $p = $this->parseTemplate(__DIR__ . '/data/translation_with_condition.tpl');
+        $this->assertNotNull($p);
+
+        $entries = $p->getPoFile()->getEntries();
+        $this->assertCount(1, $entries);
+    }
+
     /**
      * Assert that references are equal to expected
      *
