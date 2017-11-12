@@ -19,34 +19,13 @@ use Smarty;
 class SmartyTest extends TestCase
 {
     /**
-     * test with translation containing if-statements
+     * Test Smarty behaviour of various templates
+     * @dataProvider dataProvider
      */
-    public function testTranslationWithCondition()
+    public function testSmartyRender($template, $params, $exp)
     {
-        $params = array('cat' => 'remove');
-        $p = $this->renderTemplate(__DIR__ . '/data/translation_with_condition.tpl', $params);
-        $exp = 'Thank you, the emails were removed successfully';
-        $this->assertEquals($exp, $p);
-    }
-
-    /**
-     * Smarty parses nested blocks ("t" inside "reply_button"):
-     * {reply_button title="{t}reply as email{/t}"}
-     */
-    public function testTranslationInArgument()
-    {
-        $p = $this->renderTemplate(__DIR__ . '/data/translation_in_argument.tpl');
-        $exp = '<a title="reply as email"><i class="fa fa-reply reply_as_email"  aria-hidden="true"></i></a>';
-        $this->assertEquals($exp, $p);
-    }
-
-    public function testTranslateInAssign()
-    {
-        $params = array('direction' => 'up', 'href' => '.');
-
-        $p = $this->renderTemplate(__DIR__ . '/data/translate_in_assign.tpl', $params);
-        $exp = '<a href="." title="move field up"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>';
-
+        $fileName = __DIR__ . '/data/' . $template;
+        $p = $this->renderTemplate($fileName, $params);
         $this->assertEquals($exp, $p);
     }
 
@@ -56,5 +35,35 @@ class SmartyTest extends TestCase
         $smarty->assign($params);
 
         return trim($smarty->fetch($template));
+    }
+
+    public function dataProvider()
+    {
+        return array(
+            /*
+             * test with translation containing if-statements
+             */
+            'translation_with_condition' => array(
+                'translation_with_condition.tpl',
+                array('cat' => 'remove'),
+                'Thank you, the emails were removed successfully',
+            ),
+
+            /*
+             * Smarty parses nested blocks ("t" inside "reply_button"):
+             * {reply_button title="{t}reply as email{/t}"}
+             */
+            'translation_in_argument' => array(
+                'translation_in_argument.tpl',
+                array(),
+                '<a title="reply as email"><i class="fa fa-reply reply_as_email"  aria-hidden="true"></i></a>',
+            ),
+
+            'translate_in_assign' => array(
+                'translate_in_assign.tpl',
+                array('direction' => 'up', 'href' => '.'),
+                '<a href="." title="move field up"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>',
+            ),
+        );
     }
 }
