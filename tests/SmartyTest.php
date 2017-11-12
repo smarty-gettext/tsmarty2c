@@ -40,6 +40,16 @@ class SmartyTest extends TestCase
         $this->assertEquals($exp, $p);
     }
 
+    public function testTranslateInAssign()
+    {
+        $params = array('direction' => 'up', 'href' => '.');
+
+        $p = $this->renderTemplate(__DIR__ . '/data/translate_in_assign.tpl', $params);
+        $exp = '<a href="." title="move field up"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>';
+
+        $this->assertEquals($exp, $p);
+    }
+
     private function renderTemplate($template, $params = array())
     {
         $smarty = new Smarty();
