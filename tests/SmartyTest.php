@@ -64,6 +64,16 @@ class SmartyTest extends TestCase
                 array('direction' => 'up', 'href' => '.'),
                 '<a href="." title="move field up"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>',
             ),
+
+            /*
+             * variables in block content better used as arguments
+             * looks better and parser is able to parse this
+             */
+            'template_vars' => array(
+                'template_vars.tpl',
+                array('issue_id' => 1, 'core' => array('rel_url' => '/')),
+                'View Note Details (Associated with Issue <a href="/view.php?id=1">#1</a>)',
+            ),
         );
     }
 }
