@@ -104,8 +104,11 @@ class TranslateTag
 
     private function unquote($string)
     {
-        if ($string[0] == '"' || $string[0] == "'") {
-            $string = substr($string, 1, -1);
+        if ($string[0] === '"' || $string[0] === "'") {
+            $len = strlen($string);
+            if ($string[0] === $string[$len-1]) {
+                $string = substr($string, 1, -1);
+            }
         }
 
         return $string;

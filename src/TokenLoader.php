@@ -73,4 +73,25 @@ class TokenLoader extends PoInitSmarty
 
         return $entry;
     }
+
+    /**
+     * Replaces method because parent stripped quote.
+     *
+     * @inheritdoc
+     */
+    public function escapeForPo($string)
+    {
+        // FIXME: is such strip needed anyway?
+        if ($string[0] === '"' || $string[0] === "'") {
+            $len = strlen($string);
+            if ($string[0] === $string[$len - 1]) {
+                $string = substr($string, 1, -1);
+            }
+        }
+
+        $string = str_replace("\r\n", "\n", $string);
+        $string = stripcslashes($string);
+
+        return addcslashes($string, "\0..\37\"");
+    }
 }
