@@ -14,13 +14,12 @@
 
 namespace SmartyGettext\Test;
 
-use PHPUnit_Framework_TestCase;
 use Geekwright\Po\PoEntry;
 use Geekwright\Po\PoTokens;
 use SmartyGettext\PotFile;
 use Symfony\Component\Finder\SplFileInfo;
 
-class TestCase extends PHPUnit_Framework_TestCase
+class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
      * Assert that references are equal to expected
