@@ -14,6 +14,7 @@
 
 namespace SmartyGettext\Test\Parser;
 
+use SmartyGettext\PotFile;
 use SmartyGettext\Test\TestCase;
 
 class QuoteParserTest extends TestCase
@@ -29,5 +30,22 @@ class QuoteParserTest extends TestCase
         $this->assertArrayHasKey('Note', $entries);
         $this->assertArrayHasKey("'Note Discussion' is required.", $entries);
         $this->assertArrayHasKey('\"Email Discussion\" is required.', $entries);
+    }
+
+    public function testArgumentQuotes()
+    {
+        $p = new PotFile();
+        $tags = $p->getTags(__DIR__ . '/../data/argument_quotes.tpl');
+
+        $this->assertCount(1, $tags);
+        $args = $tags[0]->getArguments();
+
+        $exp = array(
+            'quote' => 'bar',
+            'apostrophe' => 'pub',
+            'int' => '1',
+            'bool' => 'false',
+        );
+        $this->assertEquals($exp, $args);
     }
 }

@@ -1,0 +1,1 @@
+{t quote="bar" apostrophe='pub' int=1 bool=false}text{/t}

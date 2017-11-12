@@ -74,6 +74,14 @@ class TranslateTag
     }
 
     /**
+     * @return string[]
+     */
+    public function getArguments()
+    {
+        return $this->arguments;
+    }
+
+    /**
      * @return string|null
      */
     public function getPlural()
@@ -106,7 +114,7 @@ class TranslateTag
     {
         if ($string[0] === '"' || $string[0] === "'") {
             $len = strlen($string);
-            if ($string[0] === $string[$len-1]) {
+            if ($string[0] === $string[$len - 1]) {
                 $string = substr($string, 1, -1);
             }
         }
@@ -118,9 +126,9 @@ class TranslateTag
     {
         $args = array();
         foreach ($this->arguments as $key => $value) {
-            $args[] = sprintf("%s=%s", $key, var_export($value, 1));
+            $args[] = sprintf('%s=%s', $key, var_export($value, 1));
         }
 
-        return sprintf("{t %s}%s{/t}\n", join(" ", $args), $this->message);
+        return sprintf("{t %s}%s{/t}\n", implode(' ', $args), $this->message);
     }
 }
