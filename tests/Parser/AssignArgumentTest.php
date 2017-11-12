@@ -16,11 +16,10 @@ namespace SmartyGettext\Test\Parser;
 
 use SmartyGettext\Test\TestCase;
 
-class FunctionArgumentTest extends TestCase
+class AssignArgumentTest extends TestCase
 {
-    public function testTranslationInArgument()
-    {
-        $p = $this->parseTemplate('translation_in_argument_simple.tpl');
+    public function testTranslationInAssign() {
+        $p = $this->parseTemplate('translate_in_assign_simple.tpl');
         $this->assertNotNull($p);
 
         $entries = $p->getPoFile()->getEntries();
