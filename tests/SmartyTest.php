@@ -18,6 +18,17 @@ use Smarty;
 
 class SmartyTest extends TestCase
 {
+    /**
+     * test with translation containing if-statements
+     */
+    public function testTranslationWithCondition()
+    {
+        $params = array('cat' => 'remove');
+        $p = $this->renderTemplate(__DIR__ . '/data/translation_with_condition.tpl', $params);
+        $exp = 'Thank you, the emails were removed successfully';
+        $this->assertEquals($exp, $p);
+    }
+
     private function renderTemplate($template, $params = array())
     {
         $smarty = new Smarty();
