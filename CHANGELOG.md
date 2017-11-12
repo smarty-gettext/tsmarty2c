@@ -4,11 +4,11 @@ When writing entries, refer to [Keep a CHANGELOG](http://keepachangelog.com/) fo
 
 All notable changes to this project will be documented in this file.
 
-## [0.1.2]
+## [0.1.2] - 2017-11-12
 
 - add support for overriding delimiters, #9
 
-[0.1.2]: https://github.com/smarty-gettext/tsmarty2c/compare/0.1.1...master
+[0.1.2]: https://github.com/smarty-gettext/tsmarty2c/compare/0.1.1...0.1.2
 
 ## [0.1.1] - 2017-09-11
 
