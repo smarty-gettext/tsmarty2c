@@ -31,6 +31,20 @@ find templates -name '*.tpl.html' -o -name '*.tpl.text' -o -name '*.tpl.js' -o -
 
 See how it's done in [Eventum](https://github.com/eventum/eventum/blob/master/localization/Makefile) project.
 
+## Installing
+
+1. as package depdencency:
+
+       composer require --dev smarty-gettext/tsmarty2c
+       ./vendor/bin/tsmarty2c.php
+
+2. directly from this repository
+
+       git clone https://github.com/smarty-gettext/tsmarty2c
+       cd tsmarty2c
+       composer install --no-dev
+       ./bin/tsmarty2c.php
+
 ## Developing
 
 1. clone this repository
