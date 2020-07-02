@@ -25,11 +25,6 @@
 			"SmartyGettext\\Test\\": "tests"
 		}
 	},
-	"config": {
-		"platform": {
-			"php": "5.5.9"
-		}
-	},
 	"require": {
 		"geekwright/po": "^1.0",
 		"php": "^5.5.9 || ^7.0",
