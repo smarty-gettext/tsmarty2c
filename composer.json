@@ -2,7 +2,7 @@
 	"name": "smarty-gettext/tsmarty2c",
 	"description": "Smarty Gettext Translation String Ripper",
 	"homepage": "https://github.com/smarty-gettext/tsmarty2c",
-	"license": "BSD",
+	"license": "BSD-3-Clause",
 	"authors": [
 		{
 			"name": "Elan Ruusamäe",
