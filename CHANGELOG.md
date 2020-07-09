@@ -4,17 +4,28 @@ When writing entries, refer to [Keep a CHANGELOG](http://keepachangelog.com/) fo
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2020-07-09
+
+- Add example about bad translation, #11
+- Fix bogus strip if translation started with quote, #12
+- Add test and example of variables in block content, #13
+- Add specific installation instructions, #14
+- Smarty 3.1.35 introduced BC break, so reject it, #16
+- Allow Symfony 4 & 5, #15
+
+[0.2.0]: https://github.com/smarty-gettext/tsmarty2c/compare/0.1.2...0.2.0
+
 ## [0.1.2] - 2017-11-12
 
-- add support for overriding delimiters, #9
+- Add support for overriding delimiters, #9
 
 [0.1.2]: https://github.com/smarty-gettext/tsmarty2c/compare/0.1.1...0.1.2
 
 ## [0.1.1] - 2017-09-11
 
-- define dummy plugin handlers for unknown tags, #6
-- fix plural handling, #7
-- fix line number context to be line of opening tag, #8
+- Define dummy plugin handlers for unknown tags, #6
+- Fix plural handling, #7
+- Fix line number context to be line of opening tag, #8
 
 [0.1.1]: https://github.com/smarty-gettext/tsmarty2c/compare/0.1.0...0.1.1
 
@@ -22,10 +33,10 @@ All notable changes to this project will be documented in this file.
 
 Initial usable version.
 
-- use Symfony\Console for CLI application
-- use Symfony\Finder to find files
-- parse template using Smarty engine into tokens: #2
-- process smarty tokens into "Tag" object: #3
-- for each "Tag" object, write .pot file: #4
+- Use Symfony\Console for CLI application
+- Use Symfony\Finder to find files
+- Parse template using Smarty engine into tokens, #2
+- Process smarty tokens into "Tag" object, #3
+- For each "Tag" object, write .pot file, #4
 
 [0.1.0]: https://github.com/smarty-gettext/tsmarty2c/commits/0.1.0
