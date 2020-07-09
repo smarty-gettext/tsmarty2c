@@ -34,7 +34,7 @@
 		"geekwright/po": "^1.0",
 		"php": "^5.5.9 || ^7.0",
 		"smarty-gettext/smarty-gettext": "^1.5.0",
-		"smarty/smarty": "^3.1.31",
+		"smarty/smarty": "<3.1.35",
 		"symfony/console": "^3.2",
 		"symfony/finder": "^2.8|^3.0"
 	},
