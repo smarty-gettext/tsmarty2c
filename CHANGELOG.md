@@ -4,6 +4,12 @@ When writing entries, refer to [Keep a CHANGELOG](http://keepachangelog.com/) fo
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.2] - 2021-12-24
+
+- Bump binary version #23
+
+[0.2.2]: https://github.com/smarty-gettext/tsmarty2c/compare/0.2.1...0.2.2
+
 ## [0.2.1] - 2020-11-11
 
 - Fix Symfony 5 compatibility #19, #18
